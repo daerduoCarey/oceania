@@ -11,9 +11,7 @@ public class fish_01_motion : MonoBehaviour {
 	int minSpeed = 5;
 	int maxSpeed = 10;
 	float rotationSpeed = 5.0f;
-	float neighbourDistance = 4.0f;
-	Vector3 averageHeading;
-	Vector3 averagePosition;
+	float neighbourDistance = SpawnerScript.neighbourDistance;
 
 	public Vector3 newGoalPos;
 
@@ -25,21 +23,21 @@ public class fish_01_motion : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		r = new System.Random();
+		r = new System.Random(Guid.NewGuid().GetHashCode());
 		speed = 0.2f * r.Next (minSpeed,maxSpeed);
 		//this.GetComponent<Animation> () ["swim"].speed = speed;
-		source = GetComponent<AudioSource> ();
+		//source = GetComponent<AudioSource> ();
 
 	}
 
 	void OnTriggerEnter(Collider other){
+//		if (other.gameObject.name == "fish_spear1(Clone)") {
+//			source.PlayOneShot (hit_music, 1F);
+//			scoreManager.score += fishscore;
+//			return;
+//		}
 		if (!turning) {
 			newGoalPos = this.transform.position - other.gameObject.transform.position;
-			if (other.gameObject.name == "fish_spear1(Clone)") {
-				source.PlayOneShot (hit_music, 1F);
-				scoreManager.score += fishscore;
-				return;
-			}
 		}
 		turning = true;
 	}
@@ -55,13 +53,13 @@ public class fish_01_motion : MonoBehaviour {
 
 		if (turning) {
 			Vector3 direction0 = newGoalPos - transform.position;
-			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (direction0), rotationSpeed * dt);
-			speed = 0.1f * r.Next (4,8);
-		} else {
-			if (r.Next (0,4) < 1) {
+			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (direction0), 2*rotationSpeed * dt);
+			speed = 0.2f * r.Next (7,10);
+		} 
+			if (r.Next (0,3) < 1) {
 				applyRules ();
 			}
-		}
+
 
 		transform.Translate(-1.5f*dt*speed,0,0);
 
@@ -82,6 +80,9 @@ public class fish_01_motion : MonoBehaviour {
 		int groupSize = 0;
 
 		foreach (GameObject go in gos) {
+			if (!go.activeSelf) {
+				continue;
+			}
 			if (go != this.gameObject) {
 				dist = Vector3.Distance (go.transform.position, this.transform.position);
 				if (dist < neighbourDistance) {

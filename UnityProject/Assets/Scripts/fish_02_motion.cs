@@ -9,7 +9,7 @@ public class fish_02_motion : MonoBehaviour {
 
 	public float speed;
 	float rotationSpeed = 2.0f;
-	float neighbourDistance = 4.0f;
+	float neighbourDistance = 6.0f;
 	Vector3 averageHeading;
 	Vector3 averagePosition;
 
@@ -17,25 +17,25 @@ public class fish_02_motion : MonoBehaviour {
 
 	public Vector3 newGoalPos;
 
-	public  AudioClip hit_music;
-	private AudioSource source;
-	int fishscore = 10;
+//	public  AudioClip hit_music;
+//	private AudioSource source;
+//	int fishscore = 10;
 
 	// Use this for initialization
 	void Start () {
-		r = new System.Random();
+		r = new System.Random(Guid.NewGuid().GetHashCode());
 		speed = 0.2f * r.Next (5,10);
-		source = GetComponent<AudioSource> ();
+		//source = GetComponent<AudioSource> ();
 	}
 
 	void OnTriggerEnter(Collider other){
+//		if (other.gameObject.name == "fish_spear1(Clone)") {
+//			source.PlayOneShot (hit_music, 1F);
+//			scoreManager.score += fishscore;
+//			return;
+//		}
 		if (!turning) {
 			newGoalPos = this.transform.position - other.gameObject.transform.position;
-			if (other.gameObject.name == "fish_spear1(Clone)") {
-				source.PlayOneShot (hit_music, 1F);
-				scoreManager.score += fishscore;
-				return;
-			}
 		}
 		turning = true;
 	}
@@ -50,13 +50,13 @@ public class fish_02_motion : MonoBehaviour {
 
 		if (turning) {
 			Vector3 direction0 = newGoalPos - transform.position;
-			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (direction0), rotationSpeed * dt);
-			speed = 0.1f * r.Next (4,8);
-		} else {
+			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (direction0), 2*rotationSpeed * dt);
+			speed = 0.2f * r.Next (7,10);
+		} 
 			if (r.Next (0,4) < 1) {
 				applyRules ();
 			}
-		}
+
 
 		transform.Translate(-2.2f*dt*speed,0,0);
 
@@ -78,6 +78,9 @@ public class fish_02_motion : MonoBehaviour {
 
 		foreach (GameObject go in gos) {
 			if (go != this.gameObject) {
+				if (!go.activeSelf) {
+					continue;
+				}
 				dist = Vector3.Distance (go.transform.position, this.transform.position);
 				if (dist < neighbourDistance) {
 					vCenter += go.transform.position;

@@ -36,10 +36,10 @@ public class SpawnerScript : MonoBehaviour {
 
 
 	public static Vector3 goalPos = Vector3.zero;
-	public static Vector3 goalPos_01 = new Vector3 (-20.0f, 0.0f, 0.0f);
-	public static Vector3 goalPos_02 = new Vector3(20.0f, 0.0f, 0.0f);
-	public static Vector3 goalPos_03 = new Vector3 (0.0f, -20.0f, 0.0f);
-	public static Vector3 goalPos_04 = new Vector3(0.0f, 0.0f, 20.0f);
+	public static Vector3 goalPos_01 = new Vector3 (-10.0f, 0.0f, 0.0f);
+	public static Vector3 goalPos_02 = new Vector3(10.0f, 0.0f, 0.0f);
+	public static Vector3 goalPos_03 = new Vector3 (0.0f, 10.0f, 0.0f);
+	public static Vector3 goalPos_04 = new Vector3(0.0f, 0.0f, 10.0f);
 	System.Random r;
 
 	public  AudioClip back_music;
@@ -54,10 +54,6 @@ public class SpawnerScript : MonoBehaviour {
 
 		source = GetComponent<AudioSource> ();
 		source.Play ();
-
-		numFish = numFish_00 + numFish_01 + numFish_02 + numFish_03 + numFish_04;
-		allFish = new GameObject[numFish];
-		numFish = 0;
 
 		allFish_00 = new GameObject[numFish_00];
 		allFish_01 = new GameObject[numFish_01];
@@ -77,8 +73,6 @@ public class SpawnerScript : MonoBehaviour {
 			float z_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
 			Vector3 pos = new Vector3(x_perturb, y_perturb, z_perturb);
 			allFish_00[i] = (GameObject) Instantiate(fishPrefab, pos, transform.rotation);
-			allFish [numFish] = allFish_00 [i];
-			numFish++;
 		}
 		for(int i=0; i<numFish_01; i++){
 			if (i % 20 == 0) {
@@ -89,42 +83,34 @@ public class SpawnerScript : MonoBehaviour {
 			float z_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
 			Vector3 pos = new Vector3(x_perturb+delta, y_perturb, z_perturb);
 			allFish_01[i] = (GameObject) Instantiate(fishPrefab_01, pos, transform.rotation);
-			allFish [numFish] = allFish_01 [i];
-			numFish++;
 		}
 		for(int i=0; i<numFish_02; i++){
 			float x_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
 			float y_perturb = r.Next (-tankSize_y, initTankSize)*1.0f;
 			float z_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
-			Vector3 pos = new Vector3(x_perturb+20, y_perturb, z_perturb);
+			Vector3 pos = new Vector3(x_perturb+30, y_perturb, z_perturb);
 			allFish_02[i] = (GameObject) Instantiate(fishPrefab_02, pos, transform.rotation);
-			allFish [numFish] = allFish_02 [i];
-			numFish++;
 		}
 		for(int i=0; i<numFish_03; i++){
 			float x_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
 			float y_perturb = r.Next (-tankSize_y, initTankSize)*1.0f;
 			float z_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
-			Vector3 pos = new Vector3(x_perturb, y_perturb, z_perturb-20);
+			Vector3 pos = new Vector3(x_perturb, y_perturb, z_perturb-30);
 			allFish_03[i] = (GameObject) Instantiate(fishPrefab_03, pos, transform.rotation);
-			allFish [numFish] = allFish_03 [i];
-			numFish++;
 		}
 		for(int i=0; i<numFish_04; i++){
 			float x_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
 			float y_perturb = r.Next (-tankSize_y, initTankSize)*1.0f;
 			float z_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
-			Vector3 pos = new Vector3(x_perturb-20, y_perturb, z_perturb);
+			Vector3 pos = new Vector3(x_perturb-30, y_perturb, z_perturb);
 			allFish_04[i] = (GameObject) Instantiate(fishPrefab_04, pos, transform.rotation);
-			allFish [numFish] = allFish_04 [i];
-			numFish++;
 		}
 
 
 		for(int i=0; i<numCoral_01; i++){
-			float x_perturb = r.Next (-initTankSize+50, initTankSize+50)*1.0f;
+			float x_perturb = r.Next (-initTankSize+30, initTankSize+30)*1.0f;
 			float y_perturb = -tankSize_y;
-			float z_perturb = r.Next (-initTankSize+50, initTankSize+50)*1.0f;
+			float z_perturb = r.Next (-initTankSize+30, initTankSize+30)*1.0f;
 			delta = 0;
 			for (int j = 0; j < 1; j++) {
 				Vector3 pos = new Vector3(x_perturb+delta, y_perturb, z_perturb);
@@ -139,11 +125,67 @@ public class SpawnerScript : MonoBehaviour {
 	
 	void Spawn ()
 	{
-		
+		int initTankSize = 2;
+		if (r.Next (0, 500)<1) {			
+			for(int i=0; i<numFish_00; i++){
+				if (allFish_00 [i].activeSelf) {
+					continue;
+				}
+				float x_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
+				float y_perturb = r.Next (-tankSize_y, initTankSize)*1.0f;
+				float z_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
+				Vector3 pos = new Vector3(x_perturb + 20, y_perturb, z_perturb+20);
+				allFish_00[i] = (GameObject) Instantiate(fishPrefab, pos, transform.rotation);
+				//print (allFish_00[i].activeSelf);
+			}
+			for(int i=0; i<numFish_01; i++){
+				if (allFish_01 [i].activeSelf) {
+					continue;
+				}
+				float x_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
+				float y_perturb = r.Next (-tankSize_y, initTankSize)*1.0f;
+				float z_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
+				Vector3 pos = new Vector3(x_perturb+10, y_perturb, z_perturb-10);
+				allFish_01[i] = (GameObject) Instantiate(fishPrefab_01, pos, transform.rotation);
+			}
+			for(int i=0; i<numFish_02; i++){
+				if (allFish_02 [i].activeSelf) {
+					continue;
+				}
+				float x_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
+				float y_perturb = r.Next (-tankSize_y, initTankSize)*1.0f;
+				float z_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
+				Vector3 pos = new Vector3(x_perturb+10, y_perturb, z_perturb+20);
+				allFish_02[i] = (GameObject) Instantiate(fishPrefab_02, pos, transform.rotation);
+			}
+			for(int i=0; i<numFish_03; i++){
+				if (allFish_03 [i].activeSelf) {
+					continue;
+				}
+				float x_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
+				float y_perturb = r.Next (-tankSize_y, initTankSize)*1.0f;
+				float z_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
+				Vector3 pos = new Vector3(x_perturb, y_perturb, z_perturb-20);
+				allFish_03[i] = (GameObject) Instantiate(fishPrefab_03, pos, transform.rotation);
+			}
+			for(int i=0; i<numFish_04; i++){
+				if (allFish_04 [i].activeSelf) {
+					continue;
+				}
+				float x_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
+				float y_perturb = r.Next (-tankSize_y, initTankSize)*1.0f;
+				float z_perturb = r.Next (-initTankSize, initTankSize)*1.0f;
+				Vector3 pos = new Vector3(x_perturb-20, y_perturb, z_perturb);
+				allFish_04[i] = (GameObject) Instantiate(fishPrefab_04, pos, transform.rotation);
+			}
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		Spawn ();
+		tankSize /= 4;
 		if (r.Next (0, 10000) < 50) {
 			goalPos = new Vector3 (r.Next (-tankSize, tankSize), r.Next (-tankSize_y, tankSize),r.Next (-tankSize, tankSize));
 		}
@@ -159,6 +201,7 @@ public class SpawnerScript : MonoBehaviour {
 		if (r.Next (0, 10000) < 50) {
 			goalPos_04 = new Vector3 (r.Next (-tankSize, tankSize), r.Next (-tankSize_y, tankSize),r.Next (-tankSize, tankSize));
 		}
+		tankSize *= 4;
 	}
 		
 }
