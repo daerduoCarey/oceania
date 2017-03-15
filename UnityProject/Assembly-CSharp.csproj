@@ -47,7 +47,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\SpawnerScript.cs" />
-     <Compile Include="Assets\Scripts\camera2.cs" />
+     <Compile Include="Assets\Scripts\camera_ego.cs" />
+     <Compile Include="Assets\Scripts\camera_player.cs" />
      <Compile Include="Assets\Scripts\fish_00_motion.cs" />
      <Compile Include="Assets\Scripts\fish_01_motion.cs" />
      <Compile Include="Assets\Scripts\fish_02_motion.cs" />

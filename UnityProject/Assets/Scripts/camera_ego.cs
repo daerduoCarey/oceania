@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class camera2 : MonoBehaviour {
+public class camera_ego : MonoBehaviour {
 
 	private Camera cam;
 	// Use this for initialization
@@ -10,7 +10,7 @@ public class camera2 : MonoBehaviour {
 		cam = GetComponent<Camera> ();
 		cam.enabled = false;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown ("c")) {

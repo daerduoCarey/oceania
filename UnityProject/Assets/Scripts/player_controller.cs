@@ -13,10 +13,12 @@ public class player_controller : MonoBehaviour {
 	private int rotate_up_down = 0;
 
 	float max_speed = 5.0f;
+	float[,] play_area;
 
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator> ();
+		play_area = new float[3, 2]{ { -29f, 29f }, { -6f, 6f }, { -29f, 29f } };
 	}
 	
 	// Update is called once per frame
@@ -56,6 +58,27 @@ public class player_controller : MonoBehaviour {
 			if (speed < 0) {
 				speed = 0;
 			}
+		}
+
+		if (transform.position.x < play_area [0, 0]) {
+			transform.position = new Vector3 (play_area [0, 0], transform.position.y, transform.position.z);
+		}
+		if (transform.position.x > play_area [0, 1]) {
+			transform.position = new Vector3 (play_area [0, 1], transform.position.y, transform.position.z);
+		}
+
+		if (transform.position.y < play_area [1, 0]) {
+			transform.position = new Vector3 (transform.position.x, play_area [1, 0], transform.position.z);
+		}
+		if (transform.position.y > play_area [1, 1]) {
+			transform.position = new Vector3 (transform.position.x, play_area [1, 1], transform.position.z);
+		}
+
+		if (transform.position.z < play_area [2, 0]) {
+			transform.position = new Vector3 (transform.position.x, transform.position.y, play_area [2, 0]);
+		}
+		if (transform.position.z > play_area [2, 1]) {
+			transform.position = new Vector3 (transform.position.x, transform.position.y, play_area [2, 1]);
 		}
 
 		transform.position += transform.forward * speed * 2 * Time.deltaTime;
