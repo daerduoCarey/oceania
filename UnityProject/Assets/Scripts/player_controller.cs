@@ -18,7 +18,8 @@ public class player_controller : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator> ();
-		play_area = new float[3, 2]{ { -29f, 29f }, { -6f, 6f }, { -29f, 29f } };
+		play_area = new float[3, 2]{ { -59f, 59f }, { -6f, 20f }, { -59f, 59f } };
+		spear_num_left_controller.num_spears_left = new int[4] { 100, 20, 10, 1 };
 	}
 	
 	// Update is called once per frame
@@ -60,24 +61,31 @@ public class player_controller : MonoBehaviour {
 			}
 		}
 
+		alert_text_manager.alert_message = "Go for the Fishes!";
 		if (transform.position.x < play_area [0, 0]) {
+			alert_text_manager.alert_message = "Out of Game Boundary!";
 			transform.position = new Vector3 (play_area [0, 0], transform.position.y, transform.position.z);
 		}
 		if (transform.position.x > play_area [0, 1]) {
+			alert_text_manager.alert_message = "Out of Game Boundary!";
 			transform.position = new Vector3 (play_area [0, 1], transform.position.y, transform.position.z);
 		}
 
 		if (transform.position.y < play_area [1, 0]) {
+			alert_text_manager.alert_message = "Out of Game Boundary!";
 			transform.position = new Vector3 (transform.position.x, play_area [1, 0], transform.position.z);
 		}
 		if (transform.position.y > play_area [1, 1]) {
+			alert_text_manager.alert_message = "Out of Game Boundary!";
 			transform.position = new Vector3 (transform.position.x, play_area [1, 1], transform.position.z);
 		}
 
 		if (transform.position.z < play_area [2, 0]) {
+			alert_text_manager.alert_message = "Out of Game Boundary!";
 			transform.position = new Vector3 (transform.position.x, transform.position.y, play_area [2, 0]);
 		}
 		if (transform.position.z > play_area [2, 1]) {
+			alert_text_manager.alert_message = "Out of Game Boundary!";
 			transform.position = new Vector3 (transform.position.x, transform.position.y, play_area [2, 1]);
 		}
 

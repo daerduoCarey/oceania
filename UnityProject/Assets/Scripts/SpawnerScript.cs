@@ -45,10 +45,12 @@ public class SpawnerScript : MonoBehaviour {
 	public  AudioClip back_music;
 	private AudioSource source;
 
+	public Color underWaterColor;
+
 	// Use this for initialization
 	void Start () {
 
-		RenderSettings.fogColor = Camera.main.backgroundColor;
+		RenderSettings.fogColor = underWaterColor;
 		RenderSettings.fogDensity = 0.008f;
 		RenderSettings.fog = true;
 

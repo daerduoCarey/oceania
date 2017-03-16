@@ -9,10 +9,14 @@ public class spear_rb_controller : MonoBehaviour {
 	public  AudioClip hit_music;
 	private AudioSource source;
 
+	public float init_speed;
+
+	public GameObject instance_score_prefab;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody>();
-		rb.velocity = transform.forward * 20;
+		rb.velocity = transform.forward * init_speed;
 		source = GetComponent<AudioSource> ();
 	}
 
@@ -22,6 +26,7 @@ public class spear_rb_controller : MonoBehaviour {
 			source.PlayOneShot (hit_music, 1F);
 			scoreManager.score += 10;
 			other.gameObject.SetActive (false);
+			Instantiate(instance_score_prefab, other.gameObject.transform.position, transform.rotation);
 			return;
 		}
 	}

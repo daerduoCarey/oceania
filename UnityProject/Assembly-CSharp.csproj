@@ -47,19 +47,25 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\SpawnerScript.cs" />
+     <Compile Include="Assets\Scripts\alert_text_manager.cs" />
+     <Compile Include="Assets\Scripts\cam_player_text.cs" />
      <Compile Include="Assets\Scripts\camera_ego.cs" />
      <Compile Include="Assets\Scripts\camera_player.cs" />
+     <Compile Include="Assets\Scripts\camera_spears_selector.cs" />
      <Compile Include="Assets\Scripts\fish_00_motion.cs" />
      <Compile Include="Assets\Scripts\fish_01_motion.cs" />
      <Compile Include="Assets\Scripts\fish_02_motion.cs" />
      <Compile Include="Assets\Scripts\fish_03_motion.cs" />
      <Compile Include="Assets\Scripts\fish_04_motion.cs" />
      <Compile Include="Assets\Scripts\player_controller.cs" />
+     <Compile Include="Assets\Scripts\reward_controller.cs" />
+     <Compile Include="Assets\Scripts\scoreManager.cs" />
      <Compile Include="Assets\Scripts\spawner_controller.cs" />
+     <Compile Include="Assets\Scripts\spear_num_left_controller.cs" />
      <Compile Include="Assets\Scripts\spear_rb_controller.cs" />
-     <Compile Include="Assets\scoreManager.cs" />
      <None Include="Assets\Resources\Free Sci-Fi Track\ReadMe.txt" />
      <None Include="Assets\Resources\nnj3de_crucarp\README.txt" />
+     <None Include="Assets\Spears_and_Pikes_Pack\Readme.txt" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
